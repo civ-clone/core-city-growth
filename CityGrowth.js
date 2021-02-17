@@ -15,19 +15,19 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
 var _city, _cost, _progress, _ruleRegistry, _size;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CityGrowth = void 0;
+const Cost_1 = require("./Rules/Cost");
 const DataObject_1 = require("@civ-clone/core-data-object/DataObject");
+const FoodStorage_1 = require("./Rules/FoodStorage");
 const Grow_1 = require("./Rules/Grow");
 const RuleRegistry_1 = require("@civ-clone/core-rule/RuleRegistry");
 const Shrink_1 = require("./Rules/Shrink");
-const FoodStorage_1 = require("./Yields/FoodStorage");
-const FoodStorage_2 = require("./Rules/FoodStorage");
-const Cost_1 = require("./Rules/Cost");
+const FoodStorage_2 = require("./Yields/FoodStorage");
 class CityGrowth extends DataObject_1.DataObject {
     constructor(city, ruleRegistry = RuleRegistry_1.instance) {
         super();
         _city.set(this, void 0);
-        _cost.set(this, new FoodStorage_1.default(Infinity));
-        _progress.set(this, new FoodStorage_1.default());
+        _cost.set(this, new FoodStorage_2.default(Infinity));
+        _progress.set(this, new FoodStorage_2.default());
         _ruleRegistry.set(this, void 0);
         _size.set(this, 1);
         __classPrivateFieldSet(this, _city, city);
@@ -39,7 +39,7 @@ class CityGrowth extends DataObject_1.DataObject {
         __classPrivateFieldGet(this, _progress).add(food);
     }
     check() {
-        __classPrivateFieldGet(this, _ruleRegistry).process(FoodStorage_2.FoodStorage, this);
+        __classPrivateFieldGet(this, _ruleRegistry).process(FoodStorage_1.FoodStorage, this);
     }
     city() {
         return __classPrivateFieldGet(this, _city);
@@ -48,7 +48,7 @@ class CityGrowth extends DataObject_1.DataObject {
         return __classPrivateFieldGet(this, _cost);
     }
     setCost() {
-        const costs = __classPrivateFieldGet(this, _ruleRegistry).process(Cost_1.default, this);
+        const costs = __classPrivateFieldGet(this, _ruleRegistry).process(Cost_1.Cost, this);
         if (costs.length > 0) {
             __classPrivateFieldGet(this, _cost).set(costs[0], 'setCost');
         }

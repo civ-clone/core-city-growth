@@ -4,8 +4,8 @@ import {
 } from '@civ-clone/core-data-object/DataObject';
 import { RuleRegistry } from '@civ-clone/core-rule/RuleRegistry';
 import City from '@civ-clone/core-city/City';
-import Yield from '@civ-clone/core-yield/Yield';
 import FoodStorage from './Yields/FoodStorage';
+import Yield from '@civ-clone/core-yield/Yield';
 export interface ICityGrowth extends IDataObject {
   add(food: Yield): void;
   check(): void;

@@ -1,7 +1,12 @@
+import { Cost, ICostRegistry } from './Rules/Cost';
 import {
   DataObject,
   IDataObject,
 } from '@civ-clone/core-data-object/DataObject';
+import {
+  FoodStorage as FoodStorageRule,
+  IFoodStorageRegistry,
+} from './Rules/FoodStorage';
 import { Grow, IGrowRegistry } from './Rules/Grow';
 import {
   RuleRegistry,
@@ -9,13 +14,8 @@ import {
 } from '@civ-clone/core-rule/RuleRegistry';
 import { Shrink, IShrinkRegistry } from './Rules/Shrink';
 import City from '@civ-clone/core-city/City';
-import Yield from '@civ-clone/core-yield/Yield';
 import FoodStorage from './Yields/FoodStorage';
-import {
-  FoodStorage as FoodStorageRule,
-  IFoodStorageRegistry,
-} from './Rules/FoodStorage';
-import Cost, { ICostRegistry } from './Rules/Cost';
+import Yield from '@civ-clone/core-yield/Yield';
 
 export interface ICityGrowth extends IDataObject {
   add(food: Yield): void;

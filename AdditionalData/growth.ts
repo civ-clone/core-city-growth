@@ -4,12 +4,17 @@ import {
 } from '../CityGrowthRegistry';
 import AdditionalData from '@civ-clone/core-data-object/AdditionalData';
 import City from '@civ-clone/core-city/City';
+import CityGrowth from '../CityGrowth';
 
-export const getAdditionalData = (
+export const getAdditionalData: (
+  cityGrowthRegistry?: CityGrowthRegistry
+) => AdditionalData[] = (
   cityGrowthRegistry: CityGrowthRegistry = cityGrowthRegistryInstance
-) => [
-  new AdditionalData(City, 'growth', (city: City) =>
-    cityGrowthRegistry.getByCity(city)
+): AdditionalData[] => [
+  new AdditionalData(
+    City,
+    'growth',
+    (city: City): CityGrowth => cityGrowthRegistry.getByCity(city)
   ),
 ];
 
