@@ -1,10 +1,6 @@
-import City from '@civ-clone/core-city/City';
-import { IRuleRegistry } from '@civ-clone/core-rule/RuleRegistry';
 import Rule from '@civ-clone/core-rule/Rule';
+import CityGrowth from '../CityGrowth';
 
-export class FoodExhausted extends Rule<[City], void> {}
+export class FoodExhausted extends Rule<[CityGrowth], void> {}
 
 export default FoodExhausted;
-
-export interface IFoodExhaustedRegistry
-  extends IRuleRegistry<FoodExhausted, [City], void> {}

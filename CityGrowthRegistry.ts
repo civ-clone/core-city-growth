@@ -11,7 +11,8 @@ export interface ICityGrowthRegistry extends IEntityRegistry<CityGrowth> {
 
 export class CityGrowthRegistry
   extends EntityRegistry<CityGrowth>
-  implements ICityGrowthRegistry {
+  implements ICityGrowthRegistry
+{
   constructor() {
     super(CityGrowth);
   }

@@ -9,7 +9,8 @@ export interface ICityGrowthRegistry extends IEntityRegistry<CityGrowth> {
 }
 export declare class CityGrowthRegistry
   extends EntityRegistry<CityGrowth>
-  implements ICityGrowthRegistry {
+  implements ICityGrowthRegistry
+{
   constructor();
   getByCity(city: City): CityGrowth;
 }

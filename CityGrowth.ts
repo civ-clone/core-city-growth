@@ -1,20 +1,17 @@
-import { Cost, ICostRegistry } from './Rules/Cost';
 import {
   DataObject,
   IDataObject,
 } from '@civ-clone/core-data-object/DataObject';
 import {
-  FoodStorage as FoodStorageRule,
-  IFoodStorageRegistry,
-} from './Rules/FoodStorage';
-import { Grow, IGrowRegistry } from './Rules/Grow';
-import {
   RuleRegistry,
   instance as ruleRegistryInstance,
 } from '@civ-clone/core-rule/RuleRegistry';
-import { Shrink, IShrinkRegistry } from './Rules/Shrink';
 import City from '@civ-clone/core-city/City';
+import Cost from './Rules/Cost';
 import FoodStorage from './Yields/FoodStorage';
+import FoodStorageRule from './Rules/FoodStorage';
+import Grow from './Rules/Grow';
+import Shrink from './Rules/Shrink';
 import Yield from '@civ-clone/core-yield/Yield';
 
 export interface ICityGrowth extends IDataObject {
@@ -51,7 +48,7 @@ export class CityGrowth extends DataObject implements ICityGrowth {
   }
 
   check(): void {
-    (this.#ruleRegistry as IFoodStorageRegistry).process(FoodStorageRule, this);
+    this.#ruleRegistry.process(FoodStorageRule, this);
   }
 
   city(): City {
@@ -63,7 +60,7 @@ export class CityGrowth extends DataObject implements ICityGrowth {
   }
 
   setCost(): void {
-    const costs = (this.#ruleRegistry as ICostRegistry).process(Cost, this);
+    const costs = this.#ruleRegistry.process(Cost, this);
 
     if (costs.length > 0) {
       this.#cost.set(costs[0], 'setCost');
@@ -77,7 +74,7 @@ export class CityGrowth extends DataObject implements ICityGrowth {
   grow(): void {
     this.#size++;
 
-    (this.#ruleRegistry as IGrowRegistry).process(Grow, this);
+    this.#ruleRegistry.process(Grow, this);
   }
 
   progress(): FoodStorage {
@@ -87,7 +84,7 @@ export class CityGrowth extends DataObject implements ICityGrowth {
   shrink(): void {
     this.#size--;
 
-    (this.#ruleRegistry as IShrinkRegistry).process(Shrink, this);
+    this.#ruleRegistry.process(Shrink, this);
   }
 
   size(): number {
