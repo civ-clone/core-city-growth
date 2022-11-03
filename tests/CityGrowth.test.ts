@@ -1,3 +1,4 @@
+import { expect, spy, use } from 'chai';
 import CityGrowth from '../CityGrowth';
 import Cost from '../Rules/Cost';
 import Effect from '@civ-clone/core-rule/Effect';
@@ -7,10 +8,7 @@ import Grow from '../Rules/Grow';
 import RuleRegistry from '@civ-clone/core-rule/RuleRegistry';
 import Shrink from '../Rules/Shrink';
 import setUpCity from '@civ-clone/core-city/tests/lib/setUpCity';
-import * as chai from 'chai';
 import * as spies from 'chai-spies';
-
-const { expect, use } = chai;
 
 use(spies);
 
@@ -27,10 +25,10 @@ describe('CityGrowth', (): void => {
 
   it('should correctly use `Rule`s and support `add`ing `Yield`s.', async (): Promise<void> => {
     const ruleRegistry = new RuleRegistry(),
-      costSpy = chai.spy((): number => 10),
-      foodStorageSpy = chai.spy((): void => {}),
-      growSpy = chai.spy((): void => {}),
-      shrinkSpy = chai.spy((): void => {});
+      costSpy = spy((): number => 10),
+      foodStorageSpy = spy((): void => {}),
+      growSpy = spy((): void => {}),
+      shrinkSpy = spy((): void => {});
 
     ruleRegistry.register(
       new Cost(new Effect(costSpy)),
