@@ -27,68 +27,68 @@ export interface ICityGrowth extends IDataObject {
 }
 
 export class CityGrowth extends DataObject implements ICityGrowth {
-  #city: City;
-  #cost: FoodStorage = new FoodStorage(Infinity);
-  #progress: FoodStorage = new FoodStorage();
-  #ruleRegistry: RuleRegistry;
-  #size: number = 1;
+  private _city: City;
+  private _cost: FoodStorage = new FoodStorage(Infinity);
+  private _progress: FoodStorage = new FoodStorage();
+  private _ruleRegistry: RuleRegistry;
+  private _size: number = 1;
 
   constructor(city: City, ruleRegistry: RuleRegistry = ruleRegistryInstance) {
     super();
 
-    this.#city = city;
-    this.#ruleRegistry = ruleRegistry;
+    this._city = city;
+    this._ruleRegistry = ruleRegistry;
     this.setCost();
 
     this.addKey('cost', 'progress', 'size');
   }
 
   add(food: Yield): void {
-    this.#progress.add(food);
+    this._progress.add(food);
   }
 
   check(): void {
-    this.#ruleRegistry.process(FoodStorageRule, this);
+    this._ruleRegistry.process(FoodStorageRule, this);
   }
 
   city(): City {
-    return this.#city;
+    return this._city;
   }
 
   cost(): FoodStorage {
-    return this.#cost;
+    return this._cost;
   }
 
   setCost(): void {
-    const costs = this.#ruleRegistry.process(Cost, this);
+    const costs = this._ruleRegistry.process(Cost, this);
 
     if (costs.length > 0) {
-      this.#cost.set(costs[0], 'setCost');
+      this._cost.set(costs[0], 'setCost');
     }
   }
 
   empty(): void {
-    this.#progress.subtract(this.#progress.value());
+    this._progress.subtract(this._progress.value());
   }
 
   grow(): void {
-    this.#size++;
+    this._size++;
 
-    this.#ruleRegistry.process(Grow, this);
+    this._ruleRegistry.process(Grow, this);
   }
 
   progress(): FoodStorage {
-    return this.#progress;
+    return this._progress;
   }
 
   shrink(): void {
-    this.#size--;
+    this._size--;
 
-    this.#ruleRegistry.process(Shrink, this);
+    this._ruleRegistry.process(Shrink, this);
   }
 
   size(): number {
-    return this.#size;
+    return this._size;
   }
 }
 

@@ -18,7 +18,11 @@ export interface ICityGrowth extends IDataObject {
   size(): number;
 }
 export declare class CityGrowth extends DataObject implements ICityGrowth {
-  #private;
+  private _city;
+  private _cost;
+  private _progress;
+  private _ruleRegistry;
+  private _size;
   constructor(city: City, ruleRegistry?: RuleRegistry);
   add(food: Yield): void;
   check(): void;
