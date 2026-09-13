@@ -18,6 +18,7 @@ export interface ICityGrowth extends IDataObject {
   size(): number;
 }
 export declare class CityGrowth extends DataObject implements ICityGrowth {
+  static readonly transient: string[];
   private _city;
   private _cost;
   private _progress;

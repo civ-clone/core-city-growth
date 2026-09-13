@@ -27,6 +27,7 @@ export interface ICityGrowth extends IDataObject {
 }
 
 export class CityGrowth extends DataObject implements ICityGrowth {
+  static readonly transient = ['_ruleRegistry'];
   private _city: City;
   private _cost: FoodStorage = new FoodStorage(Infinity);
   private _progress: FoodStorage = new FoodStorage();

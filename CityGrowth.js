@@ -56,5 +56,6 @@ class CityGrowth extends DataObject_1.DataObject {
     }
 }
 exports.CityGrowth = CityGrowth;
+CityGrowth.transient = ['_ruleRegistry'];
 exports.default = CityGrowth;
 //# sourceMappingURL=CityGrowth.js.map
