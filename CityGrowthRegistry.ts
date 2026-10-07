@@ -13,12 +13,18 @@ export class CityGrowthRegistry
   extends EntityRegistry<CityGrowth>
   implements ICityGrowthRegistry
 {
+  // A city's growth is made for it and never moves to another, so the index can't go stale and needs no `reindex`
+  //  (civ-clone/web-renderer#308).
+  private _byCity = this.index(
+    (cityGrowth: CityGrowth): City => cityGrowth.city()
+  );
+
   constructor() {
     super(CityGrowth);
   }
 
   getByCity(city: City): CityGrowth {
-    const cityGrowths = this.getBy('city', city);
+    const cityGrowths = this._byCity.get(city);
 
     if (cityGrowths.length !== 1) {
       throw new TypeError('Wrong number of CityGrowths returned.');

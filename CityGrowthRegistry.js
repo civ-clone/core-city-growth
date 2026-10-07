@@ -6,9 +6,12 @@ const CityGrowth_1 = require("./CityGrowth");
 class CityGrowthRegistry extends EntityRegistry_1.EntityRegistry {
     constructor() {
         super(CityGrowth_1.default);
+        // A city's growth is made for it and never moves to another, so the index can't go stale and needs no `reindex`
+        //  (civ-clone/web-renderer#308).
+        this._byCity = this.index((cityGrowth) => cityGrowth.city());
     }
     getByCity(city) {
-        const cityGrowths = this.getBy('city', city);
+        const cityGrowths = this._byCity.get(city);
         if (cityGrowths.length !== 1) {
             throw new TypeError('Wrong number of CityGrowths returned.');
         }

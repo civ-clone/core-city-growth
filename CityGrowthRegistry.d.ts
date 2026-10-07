@@ -11,6 +11,7 @@ export declare class CityGrowthRegistry
   extends EntityRegistry<CityGrowth>
   implements ICityGrowthRegistry
 {
+  private _byCity;
   constructor();
   getByCity(city: City): CityGrowth;
 }
