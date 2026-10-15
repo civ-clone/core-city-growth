@@ -12,9 +12,9 @@ export interface ICityGrowth extends IDataObject {
   city(): City;
   cost(): FoodStorage;
   empty(): void;
-  grow(): void;
+  grow(cause?: unknown): void;
   progress(): FoodStorage;
-  shrink(): void;
+  shrink(cause?: unknown): void;
   size(): number;
 }
 export declare class CityGrowth extends DataObject implements ICityGrowth {
@@ -31,9 +31,17 @@ export declare class CityGrowth extends DataObject implements ICityGrowth {
   cost(): FoodStorage;
   setCost(): void;
   empty(): void;
-  grow(): void;
+  /**
+   * `cause` says why the city grew, for the `Grow` rules that care: what a ruleset passes is up to it (the unit that
+   * joined the city, say). Growing from food passes nothing.
+   */
+  grow(cause?: unknown): void;
   progress(): FoodStorage;
-  shrink(): void;
+  /**
+   * `cause` says why the city shrank, for the `Shrink` rules that care, as `grow`'s does: the unit that was built, the
+   * attack that was lost, or the rule type that starved it, say.
+   */
+  shrink(cause?: unknown): void;
   size(): number;
 }
 export default CityGrowth;

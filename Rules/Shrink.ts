@@ -1,6 +1,7 @@
 import CityGrowth from '../CityGrowth';
 import Rule from '@civ-clone/core-rule/Rule';
 
-export class Shrink extends Rule<[CityGrowth], void> {}
+// The second argument is what caused it, or `null` (see `CityGrowth#shrink`).
+export class Shrink extends Rule<[CityGrowth, unknown], void> {}
 
 export default Shrink;
