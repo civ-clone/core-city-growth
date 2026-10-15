@@ -40,16 +40,24 @@ class CityGrowth extends DataObject_1.DataObject {
     empty() {
         this._progress.subtract(this._progress.value());
     }
-    grow() {
+    /**
+     * `cause` says why the city grew, for the `Grow` rules that care: what a ruleset passes is up to it (the unit that
+     * joined the city, say). Growing from food passes nothing.
+     */
+    grow(cause = null) {
         this._size++;
-        this._ruleRegistry.process(Grow_1.default, this);
+        this._ruleRegistry.process(Grow_1.default, this, cause);
     }
     progress() {
         return this._progress;
     }
-    shrink() {
+    /**
+     * `cause` says why the city shrank, for the `Shrink` rules that care, as `grow`'s does: the unit that was built, the
+     * attack that was lost, or the rule type that starved it, say.
+     */
+    shrink(cause = null) {
         this._size--;
-        this._ruleRegistry.process(Shrink_1.default, this);
+        this._ruleRegistry.process(Shrink_1.default, this, cause);
     }
     size() {
         return this._size;

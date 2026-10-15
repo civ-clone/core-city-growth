@@ -62,10 +62,32 @@ describe('CityGrowth', (): void => {
 
     expect(cityGrowth.size()).to.equal(2);
     expect(growSpy).to.called.once;
+    expect(growSpy).to.called.with(cityGrowth, null);
 
     cityGrowth.shrink();
 
     expect(cityGrowth.size()).to.equal(1);
     expect(shrinkSpy).to.called.once;
+    expect(shrinkSpy).to.called.with(cityGrowth, null);
+  });
+
+  it('should pass what caused it to grow or shrink on to the rules', async (): Promise<void> => {
+    const ruleRegistry = new RuleRegistry(),
+      growSpy = spy((): void => {}),
+      shrinkSpy = spy((): void => {}),
+      cause = {};
+
+    ruleRegistry.register(
+      new Grow(new Effect(growSpy)),
+      new Shrink(new Effect(shrinkSpy))
+    );
+
+    const cityGrowth = new CityGrowth(await setUpCity(), ruleRegistry);
+
+    cityGrowth.grow(cause);
+    cityGrowth.shrink(cause);
+
+    expect(growSpy).to.called.with(cityGrowth, cause);
+    expect(shrinkSpy).to.called.with(cityGrowth, cause);
   });
 });
